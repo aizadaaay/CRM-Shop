@@ -1,0 +1,86 @@
+{% extends 'index.html' %}
+
+{% block title %}Детали заказа{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="page-title">Заказ №{{ заказ.id }} от {{ заказ.Дата_заказа|date:"d.m.Y" }}</h1>
+
+        <div class="order-details">
+            <p><strong>Сумма заказа:</strong> {{ заказ.Сумма_заказа }} Тенге </p>
+            <p><strong>Статус:</strong> {{ заказ.Статус_заказа }}</p>
+            <p><strong>Статус:</strong> {{ заказ.Тип_статуса }}</p>
+            <p>Общая сумма заказа: {% if заказ.Сумма_заказа %}{{ заказ.Сумма_заказа }} ₽{% else %}Не установлена{% endif %}</p>
+
+
+
+        </div>
+
+        <div class="action-buttons">
+            <a href="{% url 'заказ_изменить' заказ.pk %}" class="btn btn-warning">Редактировать</a>
+            <a href="{% url 'заказ_удалить' заказ.pk %}" class="btn btn-danger">Удалить</a>
+            <a href="{% url 'заказ_список' %}" class="btn btn-secondary">Вернуться к списку</a>
+        </div>
+    </div>
+{% endblock %}
+
+<style>
+    .page-title {
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .order-details {
+        margin-bottom: 30px;
+        font-size: 18px;
+    }
+
+    .order-details strong {
+        font-weight: bold;
+    }
+
+    .action-buttons {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        font-size: 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+        margin: 5px;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: white;
+    }
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>

@@ -1,0 +1,127 @@
+{% extends 'index.html' %}
+
+{% block title %}Список заказов{% endblock %}
+
+{% block styles %}
+<style>
+    .order-table-container {
+        max-width: 100%;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-table-container h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        border: 2px solid #ccc;
+        border-radius: 12px;
+    }
+
+    .order-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .order-table th,
+    .order-table td {
+        border: 1px solid #ccc;
+        padding: 12px;
+        text-align: left;
+    }
+
+    .order-table th {
+        background-color: #f4f6f9;
+        font-weight: 600;
+        color: #444;
+    }
+
+    .order-table tbody tr:nth-child(odd) {
+        background-color: #fafafa;
+    }
+
+    .order-table tbody tr:hover {
+        background-color: #eaf4ff;
+        transition: background-color 0.2s ease;
+    }
+
+    .view-link {
+        color: #007bff;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .view-link:hover {
+        text-decoration: underline;
+    }
+
+    .btn {
+        margin-top: 25px;
+        display: inline-block;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="order-table-container">
+    <h1>Список заказов</h1>
+    <div class="table-wrapper">
+        <table class="order-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Дата</th>
+                    <th>Сумма</th>
+                    <th>Статус</th>
+                    <th>Город</th>
+                    <th>Адрес</th>
+                    <th>Покупатель</th>
+                    <th>Оплата</th>
+                    <th>Подробнее</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for заказ in заказы %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ заказ.Дата_заказа|date:"d.m.Y" }}</td>
+                    <td>{{ заказ.Сумма_заказа }} ₸</td>
+                    <td>{{ заказ.Статус_заказа }}</td>
+                    <td>{{ заказ.Город_заказа|default:"—" }}</td>
+                    <td>{{ заказ.Адрес_заказа|default:"—" }}</td>
+                    <td>{{ заказ.Айди_покупателя.ФИО }}</td>
+                    <td>{{ заказ.Способ_оплаты|default:"—" }}</td>
+                    <td><a href="{% url 'заказ_детали' заказ.pk %}" class="view-link">🔍</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9" style="text-align: center;">Заказов нет.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="{% url 'заказ_создать' %}" class="btn btn-primary">➕ Добавить заказ</a>
+</div>
+{% endblock %}

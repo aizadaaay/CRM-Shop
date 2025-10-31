@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+
+{% block title %}Детали продукта{% endblock %}
+
+{% block content %}
+<div class="product-details">
+    <h1>{{ продукт.Название }}</h1>
+    <p><strong>Описание:</strong> {{ продукт.Описание_товара }}</p>
+    <p><strong>Цена:</strong> {{ продукт.Цена }} ₽</p>
+    <p><strong>Количество на складе:</strong> {{ продукт.Количество_на_складе }}</p>
+    <p><strong>Общая_сумма:</strong> {{ продукт.Общая_сумма }}</p>
+
+
+    <div class="product-actions">
+        <a href="{% url 'продукт_изменить' продукт.pk %}" class="btn btn-primary">Редактировать</a>
+        <a href="{% url 'продукт_удалить' продукт.pk %}" class="btn btn-danger">Удалить</a>
+        <a href="{% url 'продукт_список' %}" class="btn btn-secondary">Вернуться к списку</a>
+    </div>
+</div>
+{% endblock %}
+
+<style>
+    .product-details {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        font-size: 18px;
+    }
+
+    .product-details h1 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .product-details p {
+        margin-bottom: 15px;
+    }
+
+    .product-actions a {
+        margin-right: 10px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>

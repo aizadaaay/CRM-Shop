@@ -1,0 +1,132 @@
+{% extends 'index.html' %}
+
+{% block title %}Список покупателей{% endblock %}
+
+{% block styles %}
+<style>
+    .buyer-table-container {
+        max-width: 100%;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .buyer-table-container h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        border: 2px solid #ccc;
+        border-radius: 12px;
+    }
+
+    .buyer-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .buyer-table th,
+    .buyer-table td {
+        border: 1px solid #ccc;
+        padding: 12px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    .buyer-table th {
+        background-color: #f4f6f9;
+        font-weight: 600;
+        color: #444;
+    }
+
+    .buyer-table tbody tr:nth-child(odd) {
+        background-color: #fafafa;
+    }
+
+    .buyer-table tbody tr:hover {
+        background-color: #eaf4ff;
+        transition: background-color 0.2s ease;
+    }
+
+    .view-link {
+        color: #007bff;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .view-link:hover {
+        text-decoration: underline;
+    }
+
+    .btn {
+        margin-top: 25px;
+        display: inline-block;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="buyer-table-container">
+    <h1>Список покупателей</h1>
+    {% if покупатели %}
+    <div class="table-wrapper">
+        <table class="buyer-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ФИО</th>
+                    <th>Телефон</th>
+                    <th>Почта</th>
+                    <th>Пол</th>
+                    <th>Дата рождения</th>
+                    <th>Адрес</th>
+                    <th>Бонусы</th>
+                    <th>Статус</th>
+                    <th>Дата регистрации</th>
+                    <th>Подробнее</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for покупатель in покупатели %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ покупатель.ФИО }}</td>
+                    <td>{{ покупатель.Телефон }}</td>
+                    <td>{{ покупатель.Почта }}</td>
+                    <td>{{ покупатель.Пол }}</td>
+                    <td>{{ покупатель.Дата_рождения }}</td>
+                    <td>{{ покупатель.Адрес }}</td>
+                    <td>{{ покупатель.Бонусы }}</td>
+                    <td>{{ покупатель.Статус }}</td>
+                    <td>{{ покупатель.Дата_регистрации|date:"d.m.Y H:i" }}</td>
+                    <td><a href="{% url 'покупатель_детали' покупатель.pk %}" class="view-link">🔍</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p style="text-align:center; margin-top:20px;">Пока нет зарегистрированных покупателей.</p>
+    {% endif %}
+    <a href="{% url 'покупатель_создать' %}" class="btn btn-primary">➕ Добавить покупателя</a>
+</div>
+{% endblock %}

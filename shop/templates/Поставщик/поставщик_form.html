@@ -1,0 +1,159 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    {% if object %}Поставщика өзгерту{% else %}Жаңа поставщик қосу{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-title">
+        {% if object %}Поставщика өзгерту{% else %}Жаңа поставщик қосу{% endif %}
+    </h1>
+
+    <div class="form-card">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="{{ form.ФИО.id_for_label }}">ФИО:</label>
+                {{ form.ФИО }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.С_кем_можно_связаться.id_for_label }}">С кем можно связаться:</label>
+                {{ form.С_кем_можно_связаться }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.Должность.id_for_label }}">Должность:</label>
+                {{ form.Должность }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.Адрес.id_for_label }}">Адрес:</label>
+                {{ form.Адрес }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.Почтовой_индекс.id_for_label }}">Почтовой индекс:</label>
+                {{ form.Почтовой_индекс }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.Город.id_for_label }}">Город:</label>
+                {{ form.Город }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.Страна.id_for_label }}">Страна:</label>
+                {{ form.Страна }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.Телефон.id_for_label }}">Телефон:</label>
+                {{ form.Телефон }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.Почта.id_for_label }}">Почта:</label>
+                {{ form.Почта }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Сақтау</button>
+            <a href="{% url 'поставщик_список' %}" class="btn btn-secondary">Бас тарту</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-title {
+        font-size: 32px;
+        margin-bottom: 30px;
+        color: #0d6efd;
+        font-weight: bold;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .form-card {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+        font-family: 'Arial', sans-serif;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+        border-radius: 12px;
+        border: 2px solid #ddd;
+        background-color: #f9f9f9;
+        transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        border-color: #0d6efd;
+        background-color: #ffffff;
+        box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
+        outline: none;
+    }
+
+    .form-group textarea {
+        resize: none;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        font-size: 16px;
+        border-radius: 12px;
+        text-decoration: none;
+        margin-right: 15px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        background-color: #0d6efd;
+        color: white;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #084298;
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #495057;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}

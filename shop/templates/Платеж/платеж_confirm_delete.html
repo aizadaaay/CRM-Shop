@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+
+{% block title %}Подтверждение удаления платежа{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="page-title">Вы уверены, что хотите удалить платеж на сумму {{ платеж.сумма }} ₽?</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="confirmation-buttons">
+                <button type="submit" class="btn btn-danger">Да, удалить</button>
+                <a href="{% url 'платеж_список' %}" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+<style>
+    .page-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .confirmation-buttons {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        font-size: 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+        margin: 10px;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>

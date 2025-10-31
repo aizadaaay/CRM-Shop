@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+
+{% block title %}Удаление покупателя{% endblock %}
+
+{% block content %}
+<div class="delete-confirm-container">
+    <h1 class="confirm-title">
+        Вы уверены, что хотите удалить покупателя <br><strong>{{ покупатель.имя }} {{ покупатель.фамилия }}</strong>?
+    </h1>
+
+    <form method="post" class="delete-form">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Да, удалить</button>
+        <a href="{% url 'покупатель_список' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}
+
+<style>
+    .delete-confirm-container {
+        max-width: 600px;
+        margin: 80px auto;
+        text-align: center;
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .confirm-title {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .delete-form {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>

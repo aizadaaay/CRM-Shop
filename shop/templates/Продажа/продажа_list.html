@@ -1,0 +1,125 @@
+{% extends 'index.html' %}
+
+{% block title %}Список продаж{% endblock %}
+
+{% block styles %}
+<style>
+    .sales-table-container {
+        max-width: 100%;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .sales-table-container h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        border: 2px solid #ccc;
+        border-radius: 12px;
+    }
+
+    .sales-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .sales-table th,
+    .sales-table td {
+        border: 1px solid #ccc;
+        padding: 12px;
+        text-align: left;
+    }
+
+    .sales-table th {
+        background-color: #f4f6f9;
+        font-weight: 600;
+        color: #444;
+    }
+
+    .sales-table tbody tr:nth-child(odd) {
+        background-color: #fafafa;
+    }
+
+    .sales-table tbody tr:hover {
+        background-color: #eaf4ff;
+        transition: background-color 0.2s ease;
+    }
+
+    .view-link {
+        color: #007bff;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .view-link:hover {
+        text-decoration: underline;
+    }
+
+    .btn {
+        margin-top: 25px;
+        display: inline-block;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .btn-primary {
+
+        color: white;
+    }
+
+    .btn-primary:hover {
+
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="sales-table-container">
+    <h1>Список продаж</h1>
+    <div class="table-wrapper">
+        <table class="sales-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Дата продажи</th>
+                    <th>Продукт</th>
+                    <th>Количество</th>
+                    <th>Цена за продажу</th>
+                    <th>Способ оплаты</th>
+                    <th>Сотрудник</th>
+                    <th>Подробнее</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for продажа in продажи %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ продажа.Дата|date:"d.m.Y" }}</td>
+                    <td>{{ продажа.Название_продукта }}</td>
+                    <td>{{ продажа.Количество }}</td>
+                    <td>{{ продажа.Цена_за_продажу }} ₸</td>
+                    <td>{{ продажа.Способ_оплаты|default:"—" }}</td>
+                    <td>{{ продажа.Айди_сотрудника.ФИО|default:"Не указано" }}</td>
+                    <td><a href="{% url 'продажа_детали' продажа.pk %}" class="view-link">🔍</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" style="text-align: center;">Продаж нет.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="{% url 'продажа_создать' %}" class="btn btn-primary">➕ Добавить продажу</a>
+</div>
+{% endblock %}

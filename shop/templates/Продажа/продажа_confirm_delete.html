@@ -1,0 +1,61 @@
+{% extends 'index.html' %}
+
+{% block title %}Удаление продажи{% endblock %}
+
+{% block content %}
+<div class="confirm-delete">
+    <h1>Вы уверены, что хотите удалить продажу №{{ продажа.id }}?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Да, удалить</button>
+        <a href="{% url 'продажа_список' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}
+
+<style>
+    .confirm-delete {
+        max-width: 600px;
+        margin: 80px auto;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .confirm-delete h1 {
+        font-size: 24px;
+        margin-bottom: 30px;
+        color: #dc3545;
+    }
+
+    .confirm-delete .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 10px 8px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>

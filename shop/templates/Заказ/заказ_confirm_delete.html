@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+
+{% block title %}Подтверждение удаления{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="page-title">Вы уверены, что хотите удалить заказ №{{ заказ.id }}?</h1>
+
+        <div class="confirmation-section">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Да, удалить</button>
+            </form>
+            <a href="{% url 'заказ_список' %}" class="btn btn-secondary">Отмена</a>
+        </div>
+    </div>
+{% endblock %}
+
+<style>
+    .page-title {
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .confirmation-section {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        padding: 12px 30px;
+        font-size: 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        padding: 12px 30px;
+        font-size: 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+        margin-left: 20px;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>

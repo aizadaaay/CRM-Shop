@@ -1,0 +1,95 @@
+{% extends 'index.html' %}
+
+{% block title %}Детали покупателя{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="customer-details-card">
+        <h1 class="customer-name">{{ покупатель.имя }} {{ покупатель.ФИО }}</h1>
+        <p><strong>Email:</strong> {{ покупатель.Почта }}</p>
+        <p><strong>Телефон:</strong> {{ покупатель.Телефон }}</p>
+        <p><strong>Адрес:</strong> {{ покупатель.Адрес }}</p>
+
+        <h2 class="section-title">Дополнительная информация</h2>
+        <p><strong>Количество заказов:</strong> {{ количество_заказов }}</p>
+        <p><strong>Баланс бонусов:</strong> <span id="баланс-бонусов">{{ баланс_бонусов }}</span></p>
+
+        <div class="customer-actions">
+            <a href="{% url 'покупатель_изменить' покупатель.pk %}" class="btn btn-primary">Редактировать</a>
+            <a href="{% url 'покупатель_удалить' покупатель.pk %}" class="btn btn-danger">Удалить</a>
+            <a href="{% url 'покупатель_список' %}" class="btn btn-secondary">Назад</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<style>
+    .customer-details-card {
+        max-width: 700px;
+        margin: 60px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .customer-name {
+        font-size: 28px;
+        color: #0d6efd;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .section-title {
+        font-size: 22px;
+        margin-top: 30px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .customer-details-card p {
+        font-size: 16px;
+        margin: 8px 0;
+    }
+
+    .customer-actions {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn {
+        padding: 10px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+    .btn-primary {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #bb2d3b;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>

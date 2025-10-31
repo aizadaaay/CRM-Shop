@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+
+{% block title %}Удаление продукта{% endblock %}
+
+{% block content %}
+<div class="delete-confirmation">
+    <h1>Вы уверены, что хотите удалить продукт <strong>{{ продукт.название }}</strong>?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Да, удалить</button>
+        <a href="{% url 'продукт_список' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}
+
+<style>
+    .delete-confirmation {
+        max-width: 700px;
+        margin: 100px auto;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .delete-confirmation h1 {
+        margin-bottom: 30px;
+        color: #c82333;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>

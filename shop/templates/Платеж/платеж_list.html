@@ -1,0 +1,129 @@
+{% extends 'index.html' %}
+
+{% block title %}Список платежей{% endblock %}
+
+{% block styles %}
+<style>
+    .payment-table-container {
+        max-width: 100%;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .payment-table-container h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        border: 2px solid #ccc;
+        border-radius: 12px;
+    }
+
+    .payment-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .payment-table th,
+    .payment-table td {
+        border: 1px solid #ccc;
+        padding: 12px;
+        text-align: left;
+    }
+
+    .payment-table th {
+        background-color: #f4f6f9;
+        font-weight: 600;
+        color: #444;
+    }
+
+    .payment-table tbody tr:nth-child(odd) {
+        background-color: #fafafa;
+    }
+
+    .payment-table tbody tr:hover {
+        background-color: #eaf4ff;
+        transition: background-color 0.2s ease;
+    }
+
+    .view-link {
+        color: #007bff;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .view-link:hover {
+        text-decoration: underline;
+    }
+
+    .btn {
+        margin-top: 25px;
+        display: inline-block;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="payment-table-container">
+    <h1>Список платежей</h1>
+    <div class="table-wrapper">
+        <table class="payment-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Сумма</th>
+                    <th>Способ</th>
+                    <th>Кто оплачивает</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                    <th>Кто принял</th>
+                    <th>Описание</th>
+                    <th>Номер счёта</th>
+                    <th>Подробнее</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for платеж in платежи %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ платеж.Сумма_платежа }} ₸</td>
+                    <td>{{ платеж.Способ_платежа }}</td>
+                    <td>{{ платеж.Кто_оплачивает.ФИО }}</td>
+                    <td>{{ платеж.Когда_сделали_платеж|date:"d.m.Y H:i" }}</td>
+                    <td>{{ платеж.Статус_платежа }}</td>
+                    <td>{{ платеж.Кто_берет_оплату|default:"—" }}</td>
+                    <td>{{ платеж.Описание_платежа|default:"—" }}</td>
+                    <td>{{ платеж.Номер_счет_фактурный|default:"—" }}</td>
+                    <td><a href="{% url 'платеж_детали' платеж.pk %}" class="view-link">🔍</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="10" style="text-align: center;">Нет платежей.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="{% url 'платеж_создать' %}" class="btn btn-primary">➕ Добавить платеж</a>
+</div>
+{% endblock %}

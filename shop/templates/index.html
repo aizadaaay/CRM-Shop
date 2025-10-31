@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Управление базой данных{% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- егер әлі жоқ болса, мына кодты index.html-ға қосыңыз -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url('https://png.pngtree.com/background/20230527/original/pngtree-the-desktops-and-computer-screens-of-ecommerce-stores-with-a-shopping-picture-image_2754722.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #333;
+    min-height: 100%;
+    position: relative;  /* Устанавливаем позицию для фона */
+    z-index: 0;  /* Фон будет на самом низком уровне */
+}
+
+header {
+    background-color: #1E3A8A;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;  /* Полупрозрачный фон */
+    border-radius: 8px;
+    position: relative;  /* Чтобы элемент был выше фона */
+    z-index: 2;  /* Указываем, что контейнер должен быть выше фона */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+    background-color: #2D3748;
+    color: white;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 30px;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 3;  /* Sidebar выше фона и контейнера */
+}
+
+.content {
+    margin-left: 270px;
+    padding: 30px;
+    background-color: white;
+    min-height: 100vh;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;  /* Контент выше фона */
+    background-image: url("https://png.pngtree.com/background/20230527/original/pngtree-the-desktops-and-computer-screens-of-ecommerce-stores-with-a-shopping-picture-image_2754722.jpg");
+    background-size: cover;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    header {
+        text-align: left;
+        font-size: 20px;
+        padding-left: 15px;
+    }
+}
+
+
+        .sidebar {
+            background-color: #2D3748;
+            color: white;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 30px;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            padding: 12px;
+            display: block;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #3B82F6;
+        }
+
+        .content {
+            margin-left: 270px;
+            padding: 30px;
+            background-color: white;
+            min-height: 100vh;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #3B82F6;
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #2563EB;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card-body {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .icon {
+            margin-right: 8px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            header {
+                text-align: left;
+                font-size: 20px;
+                padding-left: 15px;
+            }
+        }
+
+
+    </style>
+    {% block styles %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <div class="sidebar">
+        <ul>
+            <li>
+    <a href="/admin/" class="{% if request.path == '/admin/' %}bg-primary text-white{% else %}text-white{% endif %}">
+        <i class="fas fa-users icon"></i> Админ панель
+    </a>
+</li>
+
+<li>
+    <a href="{% url 'сотрудник_список' %}" class="{% if request.resolver_match.url_name == 'сотрудник_список' %}bg-primary text-white{% else %}text-white{% endif %}">
+        <i class="fas fa-user-tie icon"></i> Сотрудники
+    </a>
+</li>
+<li>
+    <a href="{% url 'покупатель_список' %}" class="{% if request.resolver_match.url_name == 'сотрудник_список' %}bg-primary text-white{% else %}text-white{% endif %}">
+        <i class="fas fa-user-tie icon"></i> Покупатель
+    </a>
+</li>
+<li>
+    <a href="{% url 'поставщик_список' %}" class="{% if request.resolver_match.url_name == 'поставщик_список' %}bg-primary text-white{% else %}text-white{% endif %}">
+        <i class="fas fa-truck icon"></i> Поставщики
+    </a>
+</li>
+<li>
+    <a href="{% url 'продукт_список' %}" class="{% if request.resolver_match.url_name == 'продукт_список' %}bg-primary text-white{% else %}text-white{% endif %}">
+        <i class="fas fa-cogs icon"></i> Продукты
+    </a>
+</li>
+<li>
+    <a href="{% url 'платеж_список' %}" class="{% if request.resolver_match.url_name == 'платеж_список' %}bg-primary text-white{% else %}text-white{% endif %}">
+        <i class="fas fa-credit-card icon"></i> Платежи
+    </a>
+</li>
+<li>
+    <a href="{% url 'заказ_список' %}" class="{% if request.resolver_match.url_name == 'заказ_список' %}bg-primary text-white{% else %}text-white{% endif %}">
+        <i class="fas fa-box icon"></i> Заказы
+    </a>
+</li>
+<li>
+    <a href="{% url 'продажа_список' %}" class="{% if request.resolver_match.url_name == 'продажа_список' %}bg-primary text-white{% else %}text-white{% endif %}">
+        <i class="fas fa-cash-register icon"></i> Продажи
+    </a>
+</li>
+<li>
+    <a href="{% url 'расход_список' %}" class="{% if request.resolver_match.url_name == 'расход_список' %}bg-primary text-white{% else %}text-white{% endif %}">
+        <i class="fas fa-money-bill-wave icon"></i> Расходы
+    </a>
+</li>
+
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <header>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>Управление базой данных</h1>
+        <div>
+            {% if user.is_authenticated %}
+                <span style="margin-right: 10px;">Привет, {{ user.username }}!</span>
+                <a href="{% url 'profile' %}" class="btn btn-sm btn-light">Личный кабинет</a>
+                <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-danger">Выйти</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-sm btn-primary">Войти</a>
+                <a href="{% url 'register' %}" class="btn btn-sm btn-success">Регистрация</a>
+            {% endif %}
+        </div>
+        
+    </div>
+</header>
+
+
+        <div class="container">
+            {% block content %}
+
+            <!-- Content goes here -->
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
+
+</html>

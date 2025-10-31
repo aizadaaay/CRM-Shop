@@ -1,0 +1,85 @@
+{% extends 'index.html' %}
+
+{% block title %}Детали платежа{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="page-title">Платеж от {{ платеж.Сумма_платежа }} Теңге</h1>
+
+        <div class="payment-details">
+            <p><strong>Дата:</strong> {{ платеж.Когда_написали_о_платеже }}</p>
+            <p><strong>Метод оплаты:</strong> {{ платеж.Способ_платежа }}</p>
+        </div>
+
+        <div class="action-buttons">
+            <a href="{% url 'платеж_изменить' платеж.pk %}" class="btn btn-primary">Редактировать</a>
+            <a href="{% url 'платеж_удалить' платеж.pk %}" class="btn btn-danger">Удалить</a>
+            <a href="{% url 'платеж_список' %}" class="btn btn-secondary">Вернуться к списку</a>
+        </div>
+    </div>
+{% endblock %}
+
+<style>
+    .page-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .payment-details {
+        margin-bottom: 30px;
+    }
+
+    .payment-details p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .payment-details strong {
+        font-weight: bold;
+    }
+
+    .action-buttons {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        font-size: 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+        margin: 10px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>

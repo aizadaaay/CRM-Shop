@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+
+{% block title %}Подтверждение удаления{% endblock %}
+
+{% block content %}
+<div class="confirmation-delete">
+    <h1>Вы уверены, что хотите удалить сотрудника {{ сотрудник.имя }} {{ сотрудник.фамилия }}?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Да, удалить</button>
+    </form>
+    <a href="{% url 'сотрудник_список' %}" class="btn btn-secondary">Отмена</a>
+</div>
+{% endblock %}
+
+<style>
+    .confirmation-delete {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .confirmation-delete h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .confirmation-delete .btn {
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-top: 20px;
+    }
+
+    .confirmation-delete .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .confirmation-delete .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .confirmation-delete .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .confirmation-delete .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>

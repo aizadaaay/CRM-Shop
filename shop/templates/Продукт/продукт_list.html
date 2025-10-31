@@ -1,0 +1,129 @@
+{% extends 'index.html' %}
+
+{% block title %}Список продуктов{% endblock %}
+
+{% block styles %}
+<style>
+    .product-table-container {
+        max-width: 100%;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-table-container h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        border: 2px solid #ccc;
+        border-radius: 12px;
+    }
+
+    .product-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .product-table th,
+    .product-table td {
+        border: 1px solid #ccc;
+        padding: 12px;
+        text-align: left;
+    }
+
+    .product-table th {
+        background-color: #f4f6f9;
+        font-weight: 600;
+        color: #444;
+    }
+
+    .product-table tbody tr:nth-child(odd) {
+        background-color: #fafafa;
+    }
+
+    .product-table tbody tr:hover {
+        background-color: #eaf4ff;
+        transition: background-color 0.2s ease;
+    }
+
+    .view-link {
+        color: #007bff;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .view-link:hover {
+        text-decoration: underline;
+    }
+
+    .btn {
+        margin-top: 25px;
+        display: inline-block;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="product-table-container">
+    <h1>Список продуктов</h1>
+    <div class="table-wrapper">
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Название</th>
+                    <th>Категория</th>
+                    <th>Цена</th>
+                    <th>На складе</th>
+                    <th>Производитель</th>
+                    <th>Срок годности</th>
+                    <th>Поставщик</th>
+                    <th>Вес (кг)</th>
+                    <th>Подробнее</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for продукт in продукты %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ продукт.Название }}</td>
+                    <td>{{ продукт.Категория|default:"—" }}</td>
+                    <td>{{ продукт.Цена }} ₸</td>
+                    <td>{{ продукт.Количество_на_складе }}</td>
+                    <td>{{ продукт.Производитель|default:"—" }}</td>
+                    <td>{{ продукт.Срок_годности|date:"d.m.Y" }}</td>
+                    <td>{{ продукт.Поставщик.ФИО }}</td>
+                    <td>{{ продукт.Вес|default:"—" }}</td>
+                    <td><a href="{% url 'продукт_детали' продукт.pk %}" class="view-link">🔍</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="10" style="text-align: center;">Нет продуктов.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="{% url 'продукт_создать' %}" class="btn btn-primary">➕ Добавить продукт</a>
+</div>
+{% endblock %}

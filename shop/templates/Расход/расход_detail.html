@@ -1,0 +1,87 @@
+{% extends 'index.html' %}
+
+{% block title %}Детали расхода{% endblock %}
+{% block content %}
+<div class="expense-details">
+    <h1>Расход №{{ расход.Категория_расхода }} от {{ расход.Когда_написали_о_расходе }}</h1>
+
+    <p><strong>Сумма расхода:</strong> {{ расход.Цена_расхода }} Тг</p>
+    <p><strong>Описание:</strong> {{ расход.Описание_расхода }}</p>
+
+    <p>
+        <strong>Сумма расхода:</strong>
+        <span style="color: {% if расход.Тип_расхода == 'Большой' %}red{% else %}green{% endif %};">
+            {{ расход.Цена_расхода }} Тг Чек № {{ расход.Номер_чека }}
+        </span>
+    </p>
+
+    <p><strong>Тип расхода:</strong> {{ расход.Тип_расхода }}</p>
+
+    <div class="actions">
+        <a href="{% url 'расход_изменить' расход.pk %}" class="btn btn-warning">Редактировать</a>
+        <a href="{% url 'расход_удалить' расход.pk %}" class="btn btn-danger">Удалить</a>
+        <a href="{% url 'расход_список' %}" class="btn btn-secondary">Вернуться к списку</a>
+    </div>
+</div>
+{% endblock %}
+
+
+<style>
+    .expense-details {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .expense-details h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .expense-details p {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .expense-details .actions {
+        margin-top: 30px;
+    }
+
+    .expense-details .btn {
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+    .expense-details .btn-warning {
+        background-color: #f0ad4e;
+        color: white;
+    }
+
+    .expense-details .btn-warning:hover {
+        background-color: #ec971f;
+    }
+
+    .expense-details .btn-danger {
+        background-color: #d9534f;
+        color: white;
+    }
+
+    .expense-details .btn-danger:hover {
+        background-color: #c9302c;
+    }
+
+    .expense-details .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .expense-details .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>
